@@ -1,7 +1,7 @@
 import { Card } from "@mui/material";
 
 import WatchlistPage from "./WatchlistPage";
-import Seacrh from "../components/Seacrh";
+import Search from "../components/Search";
 
 const Home = () => {
   return (
@@ -20,7 +20,7 @@ const Home = () => {
         <p>Just click on the + icon to add movie to your watchlist</p>
       </Card>
       <Card sx={{ padding: "10px", marginBottom: "20px" }}>
-        <Seacrh />
+        <Search />
       </Card>
 
       <WatchlistPage />

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import  { useState, useEffect } from "react";
 import {
   Card,
   CardMedia,
@@ -12,17 +12,31 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import CheckIcon from "@mui/icons-material/Check";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
-import { moviesData } from "../data/moviesData";
+import { moviesData } from "../services/moviesData";
 
 const WatchlistPage = () => {
   const [watchlist, setWatchlist] = useState([]);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
 
+  
+  useEffect(() => {
+    const savedWatchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
+    setWatchlist(savedWatchlist);
+  }, []);
+
+
+  useEffect(() => {
+    localStorage.setItem("watchlist", JSON.stringify(watchlist));
+  }, [watchlist]);
+
   const handleAddToWatchlist = (movie) => {
-    setWatchlist((prevWatchlist) => [...prevWatchlist, movie]);
-    setSnackbarMessage(`${movie.title} added to watchlist`);
-    setSnackbarOpen(true);
+    if (!isInWatchlist(movie.id)) {
+      const newWatchlist = [...watchlist, movie];
+      setWatchlist(newWatchlist);
+      setSnackbarMessage(`${movie.title} added to watchlist`);
+      setSnackbarOpen(true);
+    }
   };
 
   const handleCloseSnackbar = () => {
@@ -42,6 +56,10 @@ const WatchlistPage = () => {
             overflow: "hidden",
             position: "relative",
             boxShadow: 3,
+            alignItems:'center',
+            justifyContent:'center',
+            transition: "transform 0.3s ease",
+            "&:hover": { transform: "scale(1.05)" },
           }}
         >
           <IconButton
@@ -100,17 +118,14 @@ const WatchlistPage = () => {
         </Card>
       ))}
 
+      
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={3000}
         onClose={handleCloseSnackbar}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
-        <Alert
-          onClose={handleCloseSnackbar}
-          severity="success"
-          sx={{ width: "100%" }}
-        >
+        <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
           {snackbarMessage}
         </Alert>
       </Snackbar>

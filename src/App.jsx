@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import "./App.scss";
 import Layout from './layout/Layout';
 import Login from './pages/Login';
+import WatchlistView from './components/WatchlistView';
 function App() {
   
 
@@ -15,7 +16,7 @@ function App() {
       <Route path='/login' element={<Login/>}/>
       <Route element={<Layout />}>
         <Route path="/" element={<Home  />} />
-        {/* <Route path="/watchlist" element={<WatchlistPage  />} /> */}
+        <Route path="/watchlist" element={<WatchlistView />} />
         </Route>
       </Routes>
     </Router>
