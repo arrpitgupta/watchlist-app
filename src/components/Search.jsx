@@ -53,7 +53,7 @@ const Search = () => {
       try {
         const data = await searchMovieByTitle(query);
         setMovieData(data);
-        console.log("Movie data:", data); 
+        console.log("Movie data:", data);
       } catch (error) {
         console.error("Error during movie search:", error);
       }
@@ -70,7 +70,7 @@ const Search = () => {
         inputProps={{ "aria-label": "search" }}
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        onKeyDown={handleSearch} 
+        onKeyDown={handleSearch}
       />
     </SearchContainer>
   );
