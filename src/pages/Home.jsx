@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { Card } from "@mui/material";
 
 import WatchlistPage from "./WatchlistPage";
 import Search from "../components/Search";
 
 const Home = () => {
+  const [searchResults, setSearchResults] = useState([]);
   return (
     <div className="content-area">
       <Card
@@ -20,10 +22,10 @@ const Home = () => {
         <p>Just click on the + icon to add movie to your watchlist</p>
       </Card>
       <Card sx={{ padding: "10px", marginBottom: "20px" }}>
-        <Search />
+        <Search setSearchResults={setSearchResults} />
       </Card>
 
-      <WatchlistPage />
+      <WatchlistPage searchResults={searchResults} />
     </div>
   );
 };

@@ -1,4 +1,3 @@
-// components/Search.js
 import { useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
@@ -44,16 +43,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const Search = () => {
+const Search = ({ setSearchResults }) => {
   const [query, setQuery] = useState("");
-  const [movieData, setMovieData] = useState(null);
 
   const handleSearch = async (event) => {
     if (event.key === "Enter") {
       try {
         const data = await searchMovieByTitle(query);
-        setMovieData(data);
-        console.log("Movie data:", data);
+        setSearchResults(data.Response === "True" ? [data] : []);
       } catch (error) {
         console.error("Error during movie search:", error);
       }
@@ -66,7 +63,7 @@ const Search = () => {
         <SearchIcon />
       </SearchIconWrapper>
       <StyledInputBase
-        placeholder="Type and press enter to search movie by title or IMDB Id …"
+        placeholder="Type and press enter to search movie by title..."
         inputProps={{ "aria-label": "search" }}
         value={query}
         onChange={(e) => setQuery(e.target.value)}

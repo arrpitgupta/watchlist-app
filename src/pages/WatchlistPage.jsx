@@ -1,4 +1,4 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Card,
   CardMedia,
@@ -14,27 +14,39 @@ import CheckIcon from "@mui/icons-material/Check";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import { moviesData } from "../services/moviesData";
 
-const WatchlistPage = () => {
+const WatchlistPage = ({ searchResults }) => {
   const [watchlist, setWatchlist] = useState([]);
+  const [movies, setMovies] = useState(moviesData);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
 
-  
   useEffect(() => {
     const savedWatchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
     setWatchlist(savedWatchlist);
   }, []);
 
-
   useEffect(() => {
     localStorage.setItem("watchlist", JSON.stringify(watchlist));
   }, [watchlist]);
+
+  useEffect(() => {
+   
+    if (searchResults && searchResults.length > 0) {
+      setMovies((prevMovies) => {
+        const existingIDs = prevMovies.map((movie) => movie.imdbID);
+        const newMovies = searchResults.filter(
+          (movie) => !existingIDs.includes(movie.imdbID)
+        );
+        return [...prevMovies, ...newMovies];
+      });
+    }
+  }, [searchResults]);
 
   const handleAddToWatchlist = (movie) => {
     if (!isInWatchlist(movie.id)) {
       const newWatchlist = [...watchlist, movie];
       setWatchlist(newWatchlist);
-      setSnackbarMessage(`${movie.title} added to watchlist`);
+      setSnackbarMessage(`${movie.Title} added to watchlist`);
       setSnackbarOpen(true);
     }
   };
@@ -47,7 +59,7 @@ const WatchlistPage = () => {
 
   return (
     <Box display="flex" flexWrap="wrap" gap={2} padding={2}>
-      {moviesData.map((movie) => (
+      {movies.map((movie) => (
         <Card
           key={movie.id}
           sx={{
@@ -56,8 +68,8 @@ const WatchlistPage = () => {
             overflow: "hidden",
             position: "relative",
             boxShadow: 3,
-            alignItems:'center',
-            justifyContent:'center',
+            alignItems: "center",
+            justifyContent: "center",
             transition: "transform 0.3s ease",
             "&:hover": { transform: "scale(1.05)" },
           }}
@@ -83,49 +95,37 @@ const WatchlistPage = () => {
 
           <CardMedia
             component="img"
-            height="140"
-            image={movie.poster}
-            alt={movie.title}
+            height="250"
+            image={movie.Poster}
+            alt={movie.Title}
           />
 
-          <CardContent
-            sx={{ padding: "8px 16px", display: "flex", alignItems: "center" }}
-          >
-            <ThumbUpAltIcon
-              fontSize="small"
-              sx={{ color: "#4ce13f", marginRight: 0.5 }}
-            />
-            <Typography
-              variant="body2"
-              color="textSecondary"
-              sx={{ fontWeight: "bold", mr: 0.5 }}
-            >
-              {movie.rating}
+          <CardContent sx={{ padding: "8px 16px", display: "flex", alignItems: "center" }}>
+            <ThumbUpAltIcon fontSize="small" sx={{ color: "#4ce13f", marginRight: 0.5 }} />
+            <Typography variant="body2" color="textSecondary" sx={{ fontWeight: "bold", mr: 0.5 }}>
+              {movie.Ratings[0].Value}
             </Typography>
-            <Typography variant="caption" color="textSecondary">
-              /100
-            </Typography>
+            
           </CardContent>
 
           <CardContent sx={{ padding: "0 16px 16px" }}>
             <Typography variant="body2" sx={{ fontWeight: "bold", mb: 0.5 }}>
-              {movie.title}
+              {movie.Title}
             </Typography>
             <Typography variant="caption" color="textSecondary">
-              ({movie.year})
+              ({movie.Year})
             </Typography>
           </CardContent>
         </Card>
       ))}
 
-      
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={3000}
         onClose={handleCloseSnackbar}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
-        <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+        <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: "100%" }}>
           {snackbarMessage}
         </Alert>
       </Snackbar>

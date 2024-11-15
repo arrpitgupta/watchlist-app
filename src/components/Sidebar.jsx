@@ -9,7 +9,7 @@ const Sidebar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Get user email from localStorage
+    
     setUserEmail(localStorage.getItem("userEmail"));
   }, []);
 
@@ -18,7 +18,7 @@ const Sidebar = () => {
   };
 
   const handleLogout = () => {
-    // Remove user email from localStorage and update state
+    localStorage.removeItem("watchlist");
     localStorage.removeItem("userEmail");
     setUserEmail(null);
     navigate("/login");

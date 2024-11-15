@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Box, Card, CardMedia, CardContent, Typography, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import { useNavigate } from "react-router-dom";
 
 const WatchlistView = () => {
@@ -58,17 +59,24 @@ const WatchlistView = () => {
             </IconButton>
             <CardMedia
               component="img"
-              height="140"
-              image={movie.poster}
-              alt={movie.title}
+              height="250"
+              image={movie.Poster}
+              alt={movie.Title}
               sx={{ objectFit: "cover" }}
             />
+             <CardContent sx={{ padding: "8px 16px", display: "flex", alignItems: "center" }}>
+            <ThumbUpAltIcon fontSize="small" sx={{ color: "#4ce13f", marginRight: 0.5 }} />
+            <Typography variant="body2" color="textSecondary" sx={{ fontWeight: "bold", mr: 0.5 }}>
+              {movie.Ratings[0].Value}
+            </Typography>
+            
+          </CardContent>
             <CardContent sx={{ padding: "12px 16px" }}>
               <Typography variant="body2" sx={{ fontWeight: "bold", mb: 0.5 }}>
-                {movie.title}
+                {movie.Title}
               </Typography>
               <Typography variant="caption" color="textSecondary">
-                ({movie.year})
+                ({movie.Year})
               </Typography>
             </CardContent>
           </Card>
