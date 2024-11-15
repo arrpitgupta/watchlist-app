@@ -15,7 +15,6 @@ const WatchlistView = () => {
       navigate("/login");
     }
 
-    // Retrieve watchlist from localStorage
     const savedWatchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
     setWatchlist(savedWatchlist);
   }, [userEmail, navigate]);

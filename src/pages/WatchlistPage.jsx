@@ -34,12 +34,10 @@ const WatchlistPage = ({ searchResults }) => {
   useEffect(() => {
     if (searchResults && searchResults.length > 0) {
       const newMovies = searchResults.filter((movie) => {
-        // Check if required fields are present
         return movie.imdbID && movie.Poster && movie.Title && movie.Ratings?.length > 0;
       });
 
       if (newMovies.length === 0) {
-        // Redirect to error page if all data is invalid
         navigate("/error");
       } else {
         setMovies((prevMovies) => {

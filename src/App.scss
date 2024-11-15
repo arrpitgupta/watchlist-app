@@ -78,11 +78,9 @@ ul {
   @media (max-width: 1200px) {
     padding-left: 72px; 
   }
-
   @media (max-width: 768px) {
     padding-left: 60px;
   }
-
   @media (max-width: 576px) {
     padding-left: 60px;
   }
@@ -98,11 +96,9 @@ ul {
     padding: 32px;
     margin-top: 60px;
   }
-
   @media (max-width: 768px) {
     padding: 24px;
   }
-
   @media (max-width: 576px) {
     padding: 16px;
   }
@@ -115,11 +111,9 @@ ul {
   &:last-child {
     margin-bottom: 0;
   }
-
   @media (max-width: 1200px) {
     margin-bottom: 12px;
   }
-
   @media (max-width: 768px) {
     margin-bottom: 8px;
   }

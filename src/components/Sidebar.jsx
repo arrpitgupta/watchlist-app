@@ -13,9 +13,7 @@ const Sidebar = () => {
     setUserEmail(localStorage.getItem("userEmail"));
   }, []);
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+  
 
   const handleLogout = () => {
     localStorage.removeItem("watchlist");
