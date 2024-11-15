@@ -45,7 +45,7 @@ const WatchlistPage = ({ searchResults }) => {
           const validMovies = newMovies.filter(
             (movie) => !existingIDs.includes(movie.imdbID)
           );
-          return [...prevMovies, ...validMovies];
+          return [ ...validMovies,...prevMovies];
         });
       }
     }
