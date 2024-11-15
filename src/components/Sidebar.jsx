@@ -45,9 +45,9 @@ const Sidebar = () => {
         {/* <div className="sidebar-brand">
           <span className="sidebar-brand-text">Watchlists</span>
         </div> */}
-        <button className="sidebar-close-btn" onClick={toggleSidebar}>
+        {/* <button className="sidebar-close-btn" onClick={toggleSidebar}>
           ×
-        </button>
+        </button> */}
       </div>
       <div className="sidebar-body">
         <div className="sidebar-menu">

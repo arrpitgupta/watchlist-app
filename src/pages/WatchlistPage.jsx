@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Card,
   CardMedia,
@@ -19,6 +20,7 @@ const WatchlistPage = ({ searchResults }) => {
   const [movies, setMovies] = useState(moviesData);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const savedWatchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
@@ -30,17 +32,26 @@ const WatchlistPage = ({ searchResults }) => {
   }, [watchlist]);
 
   useEffect(() => {
-   
     if (searchResults && searchResults.length > 0) {
-      setMovies((prevMovies) => {
-        const existingIDs = prevMovies.map((movie) => movie.imdbID);
-        const newMovies = searchResults.filter(
-          (movie) => !existingIDs.includes(movie.imdbID)
-        );
-        return [...prevMovies, ...newMovies];
+      const newMovies = searchResults.filter((movie) => {
+        // Check if required fields are present
+        return movie.imdbID && movie.Poster && movie.Title && movie.Ratings?.length > 0;
       });
+
+      if (newMovies.length === 0) {
+        // Redirect to error page if all data is invalid
+        navigate("/error");
+      } else {
+        setMovies((prevMovies) => {
+          const existingIDs = prevMovies.map((movie) => movie.imdbID);
+          const validMovies = newMovies.filter(
+            (movie) => !existingIDs.includes(movie.imdbID)
+          );
+          return [...prevMovies, ...validMovies];
+        });
+      }
     }
-  }, [searchResults]);
+  }, [searchResults, navigate]);
 
   const handleAddToWatchlist = (movie) => {
     if (!isInWatchlist(movie.id)) {

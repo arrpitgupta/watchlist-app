@@ -6,6 +6,7 @@ import "./App.scss";
 import Layout from './layout/Layout';
 import Login from './pages/Login';
 import WatchlistView from './components/WatchlistView';
+import SomethingWentWrong from './components/SomethingWentWorng';
 function App() {
   
 
@@ -18,6 +19,7 @@ function App() {
         <Route path="/" element={<Home  />} />
         <Route path="/watchlist" element={<WatchlistView />} />
         </Route>
+        <Route path="/error" element={<SomethingWentWrong />} />
       </Routes>
     </Router>
   );

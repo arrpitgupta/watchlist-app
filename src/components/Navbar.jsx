@@ -4,7 +4,7 @@ const Navbar = () => {
   const userEmail = localStorage.getItem("userEmail");
 
   return (
-    <AppBar position="static" color="white" >
+    <AppBar position="fixed" color="white" >
       <Toolbar>
         <Typography variant="h4" sx={{ flexGrow: 1, color:'red' }}>
           Watchlist App
