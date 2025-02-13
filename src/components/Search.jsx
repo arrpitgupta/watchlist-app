@@ -53,7 +53,7 @@ const Search = ({ setSearchResults }) => {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false); 
-  const [errorMessage, setErrorMessage] = useState(""); 
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSearch = async () => {
     if (!query.trim()) return;
@@ -68,12 +68,12 @@ const Search = ({ setSearchResults }) => {
         setSearchResults([data]);
       } else {
         setSearchResults([]);
-        setErrorMessage(data.Error); 
+        setErrorMessage(data.Error);
         setSnackbarOpen(true); 
       }
     } catch (error) {
       console.error("Error during movie search:", error);
-      setErrorMessage("Something went wrong. Please try again."); 
+      setErrorMessage("Something went wrong. Please try again.");
       setSnackbarOpen(true); 
     } finally {
       setLoading(false);
